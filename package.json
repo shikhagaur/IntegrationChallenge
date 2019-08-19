@@ -1,0 +1,21 @@
+{
+  "name": "BigPandaIntegration",
+  "version": "1.0.0",
+  "description": "Integrate BigPanda with AccuWeather",
+  "main": "server.js",
+  "scripts": {
+    "test-unit": "NODE_ENV=test mocha './test/.'"
+  },
+  "author": "Shikha",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shikhagaur/BigPandaIntegration"
+  },
+  "dependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^6.2.0",
+    "sinon": "^7.4.1"
+  }
+}

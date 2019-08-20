@@ -1,5 +1,5 @@
 //create a function to send a POST request to BigPanda API to create alerts
-exports.SendBigPandaRequest = function(accuWeatherResponse, appKeybigPanda)
+exports.SendBigPandaRequest = function(accuWeatherResponse, appKeybigPanda, locationKey)
 {
   //define parameters to construct https request to BigPanda API
   var bigPandaUrl = 'api.bigpanda.io';
@@ -8,9 +8,9 @@ exports.SendBigPandaRequest = function(accuWeatherResponse, appKeybigPanda)
   //Add the required fields to BigPanda payload
   accuWeatherResponse[0].app_key = appKeybigPanda;
   accuWeatherResponse[0].status = 'critical';//'status' must exist and be one of: ok,ok-suspect,warning,warning-suspect,critical,critical-suspect,unknown,acknowledged,oksuspect,warningsuspect,criticalsuspect,ok_suspect,warning_suspect,critical_suspect,ok suspect,warning suspect,critical suspect
-  accuWeatherResponse[0].host = 'Chicago';//'status' must exist and be one of: ok,ok-suspect,warning,warning-suspect,critical,critical-suspect,unknown,acknowledged,oksuspect,warningsuspect,criticalsuspect,ok_suspect,warning_suspect,critical_suspect,ok suspect,warning suspect,critical suspect
+  accuWeatherResponse[0].host = 'San Francisco_'+locationKey;//'status' must exist and be one of: ok,ok-suspect,warning,warning-suspect,critical,critical-suspect,unknown,acknowledged,oksuspect,warningsuspect,criticalsuspect,ok_suspect,warning_suspect,critical_suspect,ok suspect,warning suspect,critical suspect
   accuWeatherResponse[0].check = 'Weather Check';
-//  accuWeatherResponse[0].incident_identifier = '12001';
+//  accuWeatherResponse[0].incident_identifier = '12005';
   delete accuWeatherResponse[0].Temperature;
   var weatherData = JSON.stringify(accuWeatherResponse[0]); //see here how to run one after another one
   console.log('\n'+weatherData);
@@ -26,23 +26,27 @@ exports.SendBigPandaRequest = function(accuWeatherResponse, appKeybigPanda)
        }
   };
 
-//create https request
-  var bigPandaPostRequest = https.request(options, (bigPandaResponse) => {
-    console.log('statusCode:', bigPandaResponse.statusCode);
-    console.log('headers:', bigPandaResponse.headers);
+return new Promise(function(resolve, reject) {
+    //create https request
+    var bigPandaPostRequest = https.request(options, (bigPandaResponse) => {
+      console.log('statusCode:', bigPandaResponse.statusCode);
+      console.log('headers:', bigPandaResponse.headers);
 
-//parse the response and write it to standard output
-    bigPandaResponse.on('data', (d) => {
-      process.stdout.write(d);
+      //parse the response and write it to standard output
+      bigPandaResponse.on('data', (d) => {
+        process.stdout.write(d);
+      });
     });
-  });
 
-//log the error to the console
-  bigPandaPostRequest.on('error', (e) => {
-    console.error(e);
-  });
+    //log the error to the console
+    bigPandaPostRequest.on('error', (e) => {
+      console.error(e);
+      reject(e);
+    });
 
-//send https request
-  bigPandaPostRequest.write(weatherData);
-  bigPandaPostRequest.end();
+    //send https request
+    bigPandaPostRequest.write(weatherData);
+    bigPandaPostRequest.end();
+    resolve();
+  });
 };

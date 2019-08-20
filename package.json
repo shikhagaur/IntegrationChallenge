@@ -13,9 +13,11 @@
     "url": "https://github.com/shikhagaur/BigPandaIntegration"
   },
   "dependencies": {
+    "amqplib": "^0.5.5",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "mocha": "^6.2.0",
+    "rsmq": "^0.11.0",
     "sinon": "^7.4.1"
   }
 }

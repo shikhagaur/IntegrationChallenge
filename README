@@ -1,0 +1,30 @@
+------------------------------------------------
+PART 1: Basic integration
+------------------------------------------------
+1. Basic integration files: AccuWeatherAccess.js, BigPandaAccess.js, server.js, readLocationsFromFile.js
+2. locations.txt file has the list of locations for which weather data needs to be retrieved
+3. readLocationsFromFile.js retrieves locations from locations.txt file
+4. AccuWeatherAccess.js file has the code to call AccuWeather API with a GET request to retrieve weather data for supplied locations
+5. Using server.js a localhost server (127.0.0.1:3000) can be made to run and the server calls AccuWeather API, sending to results to BigPandaAccess
+6. BigPandaAccess.js has the code to send POST request to BigPanda API. This creates alerts in BigPanda.
+
+In order to run the server using terminal,
+1. navigate to the folder and type the below command:
+node server.js
+2. Open a web browser and type 127.0.0.1:3000
+
+------------------------------------------------
+PART 2: Message queue
+------------------------------------------------
+1. RabbitMQ was used to create the message createQueue
+2. RabbitMQ server was deployed on 127.0.0.1:5672
+3. After installing the server, it was run using the command: rabbitmq-server
+4. The file AccuWeatherToQueue.js connects to rabbitmq server running on localhost and creates a queue. It then sends the request to AccuWeather API and receives weather data.
+5. The file receiveFromQueuePushToBigPanda.js 
+In order to run the server using terminal,
+1. Run RabbitMQ server using the command,
+rabbitmq-server
+2. In a separate terminal window type below to push weather data to queue,
+./AccuWeatherToQueue.js
+3. Type below to fetch the data from queue and send it to BigPanda:
+./receiveFromQueuePushToBigPanda.js

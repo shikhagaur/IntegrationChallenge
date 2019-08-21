@@ -4,13 +4,16 @@ var appKeybigPanda = 'bb0eb030296150f70753b85e331f9d83'; //API key to access Big
 var location = require('./readLocationsFromFile');
 var amqp = require('amqplib/callback_api');
 
-amqp.connect('amqp://localhost', function(error0, connection) {
-    if (error0) {
-        throw error0;
+//connect to rabbitMQ server running on localhost
+amqp.connect('amqp://localhost', function(errConnectingToRabbitMQ, connection) {
+    if (errConnectingToRabbitMQ) {
+        console.log(errConnectingToRabbitMQ);
     }
-    connection.createChannel(function(error1, channel) {
-        if (error1) {
-            throw error1;
+
+    //create a channel on the connection
+    connection.createChannel(function(errCreatingChannel, channel) {
+        if (errCreatingChannel) {
+            console.log(errCreatingChannel);
         }
 
         var queue = 'weatherData';

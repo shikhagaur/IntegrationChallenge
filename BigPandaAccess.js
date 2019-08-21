@@ -8,9 +8,9 @@ exports.SendBigPandaRequest = function(accuWeatherResponse, appKeybigPanda, loca
   //Add the required fields to BigPanda payload
   accuWeatherResponse[0].app_key = appKeybigPanda;
   accuWeatherResponse[0].status = 'critical';//'status' must exist and be one of: ok,ok-suspect,warning,warning-suspect,critical,critical-suspect,unknown,acknowledged,oksuspect,warningsuspect,criticalsuspect,ok_suspect,warning_suspect,critical_suspect,ok suspect,warning suspect,critical suspect
-  accuWeatherResponse[0].host = 'San Francisco_'+locationKey;//'status' must exist and be one of: ok,ok-suspect,warning,warning-suspect,critical,critical-suspect,unknown,acknowledged,oksuspect,warningsuspect,criticalsuspect,ok_suspect,warning_suspect,critical_suspect,ok suspect,warning suspect,critical suspect
+  accuWeatherResponse[0].host = 'New York';
   accuWeatherResponse[0].check = 'Weather Check';
-//  accuWeatherResponse[0].incident_identifier = '12005';
+  accuWeatherResponse[0].incident_identifier = locationKey;
   delete accuWeatherResponse[0].Temperature;
   var weatherData = JSON.stringify(accuWeatherResponse[0]); //see here how to run one after another one
   console.log('\n'+weatherData);

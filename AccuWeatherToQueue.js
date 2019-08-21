@@ -7,14 +7,12 @@ var amqp = require('amqplib/callback_api');
 
 amqp.connect('amqp://localhost', function(errConnectingToRabbitMQ, connection) {
     if (errConnectingToRabbitMQ) {
-        //throw error0;
         console.error("[AMQP]", errConnectingToRabbitMQ.message);
       //  return setTimeout(start, 1000);
     }
     //create a channel on the connection
     connection.createChannel(function(errCreatingChannel, channel) {
         if (errCreatingChannel) {
-            //throw error1;
             console.error("[AMQP createChannel]", errCreatingChannel.message);
         }
 

@@ -20,7 +20,8 @@ PART 2: Message queue
 2. RabbitMQ server was deployed on 127.0.0.1:5672
 3. After installing the server, it was run using the command: rabbitmq-server
 4. The file AccuWeatherToQueue.js connects to rabbitmq server running on localhost and creates a queue. It then sends the request to AccuWeather API and receives weather data.
-5. The file receiveFromQueuePushToBigPanda.js 
+5. The file receiveFromQueuePushToBigPanda.js connects to the rabbitmq server and pushes the alert data to BigPanda
+
 In order to run the server using terminal,
 1. Run RabbitMQ server using the command,
 rabbitmq-server
